@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat de ia</title>
+</head>
+<body>
+    <h2>Chat IA</h2>
+    <div id="chat"></div>
+    <input type="text" name="input" id="input" placeholder="Digite sua mensagem...">
+    <button onclick="sendMessage()">Enviar</button>
+    <script>
+        const input = document.getElementById("input");
+        const chat = document.getElementById("chat");
+        
+        const prompt = input.value;
+        if (!prompt) return;
+
+        chat.innerHTML += `<div class="user"><b>Você:</b> ${prompt} </div>`;
+
+    </script>
+</body>
+</html>
