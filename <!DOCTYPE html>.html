@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat de ia</title>
+</head>
+<body>
+    <h2>Chat IA</h2>
+    <div id="chat"></div>
+    <input type="text" name="input" id="input" placeholder="Digite sua mensagem...">
+    <button onclick="sendMessage()">Enviar</button>
+    <script>
+        async function sendMessage(){
+        const input = document.getElementById("input");
+        const chat = document.getElementById("chat");
+        
+        const prompt = input.value;
+        if (!prompt) return;
+        
+        chat.innerHTML += `<div class="user"><b>Você:</b> ${prompt} </div>`;
+        const responseDiv = document.createElement("div");
+        responseDiv.className = "bot";
+        responseDiv.innerHTML = "<b>IA:</b>";
+        chat.appendChild(responseDiv);
+        input.value = "";
+
+        const res = await fetch("http://localhost:11434/api/generate", 
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: "codellama:7b",
+                    prompt:prompt,
+                    stream:true
+                })
+            }
+        );
+
+        const reader = res.body.getReader();
+         const decoder =new TextDecoder();
+
+         while (true){
+            const {done,value} = await reader.read();
+            if (done) break;
+            const chuck = decoder.decode(value);
+
+            const line = chuck.split("/n");
+            for (let line of lines);
+            if (line.trim)
+         }
+        }
+    </script>
+</body>
+</html>
